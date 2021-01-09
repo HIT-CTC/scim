@@ -81,8 +81,8 @@ class outputData(object):
         self.zplus= self.zc*self.utau/self.nu
         for var, var_flag in self.var_dict.items():
             if var_flag:
+                nor = 1
                 if flag_nor:
-                    nor = 1
                     for str in var:
                         if str in ['u', 'v', 'w']:
                             nor *= 1/self.utau
@@ -90,7 +90,7 @@ class outputData(object):
                             nor *= 1/self.tau
                         elif str in ['x', 'y', 'z']:
                             nor *= self.nu/self.utau
-                    setattr(self, var, norAll(readHDF(self.fn, var, blockz, blocky, blockx))*nor)
+                setattr(self, var, norAll(readHDF(self.fn, var, blockz, blocky, blockx))*nor)
         
     def outputData(self, outputname):
         i = 0
