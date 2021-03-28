@@ -1,17 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 20 18:58:47 2021
-
-@author: yh
-"""
-
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Feb 24 22:29:42 2021
-@author: yh
-"""
+#!/home/yh/anaconda3/bin/python
 
 import h5py
 import numpy as np
@@ -36,7 +23,19 @@ class readHDF(object):
         f = h5py.File(self.filename, 'r')
         for key in f.keys():
             print(key)
-
+            
+    
+    def printallinfo(self):
+        f = h5py.File(self.filename, 'r')
+        for key in f.keys():
+            print(key)
+            print('Variables name is {}'.format(key))
+            print('Type is', f[key].dtype)
+            if f[key].shape != (1, ):
+                print('The shape of the variables is ', f[key].shape)
+            else:
+                print('The number of the variable is', f[key][0])
+            print('----------------------------')
        
 #HDF5的读取：
 # f = h5py.File('avg_recy.h5','r')   #打开h5文件
@@ -73,6 +72,11 @@ if __name__ == '__main__':
                         action='store_true',
                         help='Type nothing'
                         )
+    parser.add_argument(
+                        '-a -v', '--all information',
+                        action='store_true',
+                        help='Type nothing'
+                        )
     args = parser.parse_args()
     #a = readHDF(args.filename).readInfo(args.variables)
     a = readHDF(args.filename)
@@ -81,8 +85,5 @@ if __name__ == '__main__':
     elif args.all is not True:
         a.readInfo(args.variables) 
     else :
-        a.readInfo(args.variables)
-        a.printAll()   
-        
-
+        a.printallinfo()
     
