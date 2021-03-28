@@ -29,9 +29,8 @@ You can just use
 ./xdmf_gener -h
 ```
 to see the usage of this scripts.
-
+### var.py
 Requirement: h5py
-
 (You can just use
 ```bash
 ./var.py -h
