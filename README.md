@@ -29,6 +29,15 @@ You can just use
 ./xdmf_gener -h
 ```
 to see the usage of this scripts.
+
+Requirement: h5py
+
+(You can just use
+```bash
+./var.py -h
+```
+to see the usage of this scripts.)
+
 ### Bash
 #### Plotit\&Plotall
 Plotit.sh and plotall.sh is a script to use gnuplot, you can just use
