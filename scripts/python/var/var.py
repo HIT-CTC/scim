@@ -18,20 +18,27 @@ class readHDF(object):
             else:
                 print('The number of the variable is', f[svar][0])
             print('----------------------------')
-            
-     def printAll(self):
+
+    def printAll(self):
         f = h5py.File(self.filename, 'r')
+        dict={}
         for key in f.keys():
-            print(key,end=" ")
-            
-    
+            if str(f[key].dtype) in dict.keys():
+                dict[str(f[key].dtype)][str(key)]=f[key][0]
+            else:
+                dict[str(f[key].dtype)] = {str(key):f[key][0]}
+        for i in dict:
+            print('')
+            print('----------------------------')
+            print(i)
+            for j in dict[i]:
+                print(j,end=" ")
+ 
     def printallinfo(self):
         f = h5py.File(self.filename, 'r')
         var = f.keys()
         self.readInfo(var)
-
-    
-       
+ 
 #HDF5的读取：
 # f = h5py.File('avg_recy.h5','r')   #打开h5文件
 # 可以查看特定的变量
