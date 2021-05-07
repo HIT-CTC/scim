@@ -24,16 +24,30 @@ class readHDF(object):
         dict={}
         for key in f.keys():
             if str(f[key].dtype) in dict.keys():
-                dict[str(f[key].dtype)][str(key)]=f[key][0]
+                if str(f[key].shape) in dict[str(f[key].dtype)]: 
+                    dict[str(f[key].dtype)][str(f[key].shape)][str(key)]=f[key][0]
+                else:
+                    dict[str(f[key].dtype)][str(f[key].shape)] = {str(key):f[key][0]}
             else:
-                dict[str(f[key].dtype)] = {str(key):f[key][0]}
+                dict[str(f[key].dtype)] = {str(f[key].shape):{str(key):f[key][0]}}
         for i in dict:
             print('')
-            print('----------------------------')
+            print('===================')
             print(i)
             for j in dict[i]:
-                print(j,end=" ")
- 
+                print('')
+                #print('--------------------')
+                print('  '+str(j)+': ')
+                counter = 0
+                for k in dict[i][j]:
+                    if counter == 8:
+                        print('    '+str(k).ljust(4))
+                        counter = 0
+                    else:
+                        print('    '+str(k).ljust(4),end=" ")
+                        counter += 1
+                
+               # print('\n-------------------')
     def printallinfo(self):
         f = h5py.File(self.filename, 'r')
         var = f.keys()
